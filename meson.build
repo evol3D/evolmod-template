@@ -2,6 +2,8 @@ project('template', 'c',
 version : '0.1',
 default_options : ['warning_level=3'])
 
+cc = meson.get_compiler('c')
+
 mod_src = [
   'src/template.c'
 ]
@@ -10,11 +12,12 @@ mod_incdir = [
   'include'
 ]
 
-evol_sub = subproject('evol', default_options: ['build_demo=false'])
-evolmod_dep = evol_sub.get_variable('evolmod_dep')
+evol_dep = dependency('evol')
+dl_dep = cc.find_library('dl', required: false)
 
 mod_deps = [
-  evolmod_dep,
+  evol_dep,
+  dl_dep,
 ]
 
 moduleconfig = get_option('moduleconfig')
@@ -29,7 +32,7 @@ configure_file(
   capture: true
 )
 
-module = shared_library(
+module = shared_module(
   'template', mod_src,
   include_directories: mod_incdir,
   dependencies: mod_deps,
