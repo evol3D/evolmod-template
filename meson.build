@@ -8,9 +8,7 @@ mod_src = [
   'src/template.c'
 ]
 
-mod_incdir = [
-  'include'
-]
+mod_incdir = [ '..' ]
 
 evol_dep = dependency('evol')
 dl_dep = cc.find_library('dl', required: false)
@@ -38,5 +36,10 @@ module = shared_module(
   dependencies: mod_deps,
 )
 
+mod_dep = declare_dependency(
+  include_directories: mod_incdir,
+)
 
-
+if meson.version().version_compare('>= 0.54.0')
+  meosn.override_dependency('evmod_template', mod_dep)
+endif

@@ -7,7 +7,7 @@ EV_CONSTRUCTOR {
   printf("Loaded template module\n");
 }
 
-EV_START {}
+EV_UPDATE {}
 
 EV_DESTRUCTOR {
   printf("Unloaded template module\n");
