@@ -7,7 +7,11 @@ EV_CONSTRUCTOR {
   printf("Loaded template module\n");
 }
 
-EV_UPDATE {}
+U32 update(F32 deltaTime)
+{
+  EV_UNUSED_PARAM(deltaTime);
+  return 0;
+}
 
 EV_DESTRUCTOR {
   printf("Unloaded template module\n");
@@ -21,4 +25,9 @@ EVMODAPI bool export_and(bool x, bool y)
 EVMODAPI bool export_or(bool x, bool y)
 {
   return x | y;
+}
+
+EV_BINDINGS
+{
+  EV_NS_BIND_FN(Namespace1, update, update);
 }
