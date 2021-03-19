@@ -22,8 +22,8 @@ moduleconfig = get_option('moduleconfig')
 configure_file(
   input: moduleconfig,
   command: [
-    meson.project_source_root() + '/subprojects/luajit/src/luajit', 
-    meson.project_source_root() + '/subprojects/evol/buildscripts/bin2cstring.lua', 
+    meson.source_root() + '/subprojects/luajit/src/luajit', 
+    meson.source_root() + '/subprojects/evol/buildscripts/bin2cstring.lua', 
     meson.project_source_root() + '/' + moduleconfig
   ],
   output: moduleconfig + '.h',
@@ -41,5 +41,5 @@ mod_dep = declare_dependency(
 )
 
 if meson.version().version_compare('>= 0.54.0')
-  meosn.override_dependency('evmod_template', mod_dep)
+  meson.override_dependency('evmod_template', mod_dep)
 endif
